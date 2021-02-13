@@ -49,7 +49,19 @@
             </StackPanel>
         </TabItem>
         <TabItem Header="Nihilist">
-            
+            <StackPanel>
+                <TextBlock>Cheie alfabet:</TextBlock>
+                <TextBox Name="NihilistAlphabetKey" TextChanged="NihilistAlphabetKey_OnTextChanged"/>
+                
+                <TextBlock>Cheie cifru:</TextBlock>
+                <TextBox Name="NihilistCryptKey" />
+                
+                <TextBlock>Text clar:</TextBlock>
+                <TextBox Name="NihilistClearText" Style="{StaticResource TextArea}"/>
+                
+                <TextBlock>Text criptat:</TextBlock>
+                <TextBox Name="NihilistEncrypted" Style="{StaticResource TextArea}"/>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </Window>

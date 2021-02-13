@@ -25,6 +25,8 @@ namespace Laborator_1
         {
             InitializeComponent();
         }
+        
+        //TODO: add uppercase vaidation
 
         private bool _triggerMyszkowski = true;
         private void MyszkowskiClearText_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -52,6 +54,28 @@ namespace Laborator_1
                 _triggerMyszkowski = false;
                 MyszkowskiClearText.Text = Myszkowski.Decrypt(encryptedText, key);
                 _triggerMyszkowski = true;
+            }
+        }
+
+        private void NihilistAlphabetKey_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var clearText = NihilistClearText.Text;
+            var alphabetKey = NihilistAlphabetKey.Text;
+            var cryptKey = NihilistCryptKey.Text;
+
+            if (clearText != string.Empty
+                && alphabetKey != string.Empty
+                && cryptKey != string.Empty)
+            {
+                foreach (var row in Nihilist.GetEncryptTable(clearText, cryptKey, alphabetKey))
+                {
+                    foreach (var i in row)
+                    {
+                        Console.Write(i + " ");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
             }
         }
     }
