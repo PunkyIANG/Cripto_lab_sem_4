@@ -7,46 +7,49 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     
-    
-    <StackPanel>
-        <StackPanel.Resources>
+    <TabControl>
+        <TabControl.Resources>
             <Style TargetType="FrameworkElement" x:Key="CommonStyle">
-                <Setter Property="Margin" Value="10,5,0,0"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="150"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Margin" Value="10,5,0,0" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Width" Value="150" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
-            
-            <Style TargetType="ComboBox" BasedOn="{StaticResource CommonStyle}"/>
-            
-            <Style TargetType="TextBox" BasedOn="{StaticResource CommonStyle}"/>
-            
-            <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyle}"/>
-        </StackPanel.Resources>
-        
-        <ComboBox SelectedIndex="0">
-            <ComboBoxItem Tag="DefaultOption">Alegeti algoritmul</ComboBoxItem>
-            <ComboBoxItem Tag="MyszkowskiOption">Myszkowski</ComboBoxItem>
-            <ComboBoxItem Tag="NihilistOption">Nihilist</ComboBoxItem>
-            <ComboBoxItem Tag="PlayfairOption">Playfair</ComboBoxItem>
-            <ComboBoxItem Tag="NicodemusOption">Nicodemus</ComboBoxItem>
-        </ComboBox>
-        
-        <TextBlock>Cheie:</TextBlock>
-        <TextBox Name="MyszkowskiKey"></TextBox>
-        
-        <TextBlock>Text clar:</TextBlock>
-        <TextBox Name="MyszkowskiClear"></TextBox>
-        
-        <TextBlock>--------------~~~--------------</TextBlock>
-        
-        <TextBlock>Text criptat:</TextBlock>
-        <TextBox Name="MyszkowskiEncrypted"></TextBox>
-        
-        <TextBlock>Text:</TextBlock>
-        <TextBox Name="TextStuff" TextChanged="TextStuff_OnTextChanged"/>
-        <TextBlock Name="EditedStuff"></TextBlock>
 
-    </StackPanel>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource CommonStyle}" />
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource CommonStyle}" />
+
+            <Style TargetType="TextBox" x:Key="TextArea" BasedOn="{StaticResource CommonStyle}">
+                <Setter Property="Height" Value="60"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
+            </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyle}" />
+        </TabControl.Resources>
+
+        <TabItem Header="Myszkowski">
+            <StackPanel>
+                <TextBlock>Cheie:</TextBlock>
+                <TextBox Name="MyszkowskiKey"></TextBox>
+
+                <TextBlock>Text clar:</TextBlock>
+                <TextBox Name="MyszkowskiClearText" TextChanged="MyszkowskiClearText_OnTextChanged"
+                         Style="{StaticResource TextArea}">
+                </TextBox>
+
+                <TextBlock>--------------~~~--------------</TextBlock>
+
+                <TextBlock>Text criptat:</TextBlock>
+                <TextBox Name="MyszkowskiEncryptedText" TextChanged="MyszkowskiEncryptedText_OnTextChanged"
+                         Style="{StaticResource TextArea}">
+                </TextBox>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Nihilist">
+            
+        </TabItem>
+    </TabControl>
 </Window>

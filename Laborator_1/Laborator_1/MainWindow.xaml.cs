@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,33 @@ namespace Laborator_1
             InitializeComponent();
         }
 
-
-        private void TextStuff_OnTextChanged(object sender, TextChangedEventArgs e)
+        private bool _triggerMyszkowski = true;
+        private void MyszkowskiClearText_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var txtBox = (TextBox) sender;
-            txtBox.Text = txtBox.Text.ToUpper();
-            txtBox.CaretIndex = txtBox.Text.Length;
-            EditedStuff.Text = string.Join("", 
-                    CoreCrypto.MyszkowskiLetterMap(txtBox.Text));
+            var clearText = MyszkowskiClearText.Text;
+            var key = MyszkowskiKey.Text;
+            if (clearText != string.Empty
+                && key != string.Empty
+                && _triggerMyszkowski)
+            {
+                _triggerMyszkowski = false;
+                MyszkowskiEncryptedText.Text = Myszkowski.Encrypt(clearText, key);
+                _triggerMyszkowski = true;
+            }
+        }
+
+        private void MyszkowskiEncryptedText_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var encryptedText = MyszkowskiEncryptedText.Text;
+            var key = MyszkowskiKey.Text;
+            if (encryptedText != string.Empty
+                && key != string.Empty
+                && _triggerMyszkowski)
+            {
+                _triggerMyszkowski = false;
+                MyszkowskiClearText.Text = Myszkowski.Decrypt(encryptedText, key);
+                _triggerMyszkowski = true;
+            }
         }
     }
 }
