@@ -10,13 +10,12 @@ namespace Laborator_1
         public static int[] LetterMap(string keyword)
         {
             var keywordArr = keyword.ToUpper().ToCharArray();
-            var usedKeys = new Dictionary<char, int>();
             
             var result = new int[keyword.Length];
             for (var i = 0; i < keyword.Length; i++)
             {
                 var minChar = char.MaxValue;
-                List<int> minCharIds = new List<int>();
+                var minCharIds = new List<int>();
                 for (int j = 0; j < keyword.Length; j++)
                 {
                     var key = keywordArr[j];

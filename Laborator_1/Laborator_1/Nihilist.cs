@@ -38,6 +38,13 @@ namespace Laborator_1
 
             return result;
         }
+        
+        private static void Increment(ref int counterI, ref int counterJ)
+        {
+            counterJ++;
+            counterI += counterJ / 5;
+            counterJ %= 5;
+        }
 
         private static int CharToInt(char c, char[][] alphabetTable)
         {
@@ -62,16 +69,18 @@ namespace Laborator_1
             Console.WriteLine(id);
             int i = (id / 10) - 1;
             int j = (id % 10) - 1;
-            return alphabetTable[i][j];
-        }
 
-        private static void Increment(ref int counterI, ref int counterJ)
-        {
-            counterJ++;
-            counterI += counterJ / 5;
-            counterJ %= 5;
+            if (i < 5 && i >= 0
+                      && j < 5 && j >= 0)
+            {
+                return alphabetTable[i][j];
+            }
+            
+            Console.WriteLine("Shit's fucked man");
+            Console.WriteLine("Nonexistent id given to IntToChar converter " + id);
+            return '?';
         }
-
+        
         public static string Encrypt(string clearText, string cryptKey, string alphabetKey)
         {
             var alphabetTable = GetAlphabetTable(alphabetKey);
@@ -143,7 +152,7 @@ namespace Laborator_1
                     {
                         continue;
                     }
-                    
+
                     if (j < 10)
                     {
                         encryptedText += "0";
@@ -162,7 +171,7 @@ namespace Laborator_1
             int[] intArray = encryptedText.Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
-            
+
             int[][] intTable = new int[(int) Math.Ceiling((float) intArray.Length / cryptKey.Length + 1)][];
 
             for (int i = 0; i < intTable.Length; i++)
@@ -175,6 +184,7 @@ namespace Laborator_1
                 intTable[0][i] = CharToInt(cryptKey[i], alphabetTable);
                 Console.Write(intTable[0][i] + " ");
             }
+
             Console.WriteLine();
 
             for (int i = 1; i < intTable.Length; i++)
@@ -191,13 +201,13 @@ namespace Laborator_1
                     {
                         intTable[i][j] = 100;
                     }
-                    
+
                     Console.Write(intTable[i][j] + " ");
                 }
+
                 Console.WriteLine();
             }
-            
-            
+
 
             string clearText = "";
 
@@ -216,11 +226,11 @@ namespace Laborator_1
                     {
                         actualId += 100;
                     }
-                    
+
                     clearText += IntToChar(actualId, alphabetTable);
                 }
             }
-            
+
             return clearText;
         }
     }
