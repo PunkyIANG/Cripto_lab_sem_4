@@ -63,5 +63,17 @@
                 <TextBox Name="NihilistEncrypted" TextChanged="NihilistEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>
             </StackPanel>
         </TabItem>
+        <TabItem Header="Playfair">
+            <StackPanel>
+                <TextBlock>Cheie alfabet:</TextBlock>
+                <TextBox Name="PlayfairAlphabetKey" TextChanged="PlayfairAlphabetKey_OnTextChanged"/>
+                
+                <TextBlock>Text clar:</TextBlock>
+                <TextBox Name="PlayfairClearText" Style="{StaticResource TextArea}"/>
+                
+                <TextBlock>Text criptat:</TextBlock>
+                <TextBox Name="PlayfairEncrypted" TextChanged="PlayfairEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>
+            </StackPanel>
+        </TabItem>
     </TabControl>
 </Window>

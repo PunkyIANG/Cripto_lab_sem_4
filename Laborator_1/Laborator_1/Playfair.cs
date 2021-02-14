@@ -105,5 +105,36 @@ namespace Laborator_1
             x = 0;
             y = 0;
         }
+
+        public static string Encrypt(string clearText, string alphabetKey)
+        {
+            var alphabetTable = GetAlphabetTable(alphabetKey);
+            var result = "";
+
+            while (clearText.Length != 0)
+            {
+                if (clearText.Length == 1 || clearText[0] == clearText[1])
+                {
+                    result += EncryptBigram(clearText[0] + "X", alphabetTable);
+                    clearText = clearText.Remove(0, 1);
+                    continue;
+                }
+
+                if (clearText[0] != clearText[1])
+                {
+                    result += EncryptBigram("" + clearText[0] + clearText[1], alphabetTable);
+                    clearText = clearText.Remove(0, 2);
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine("Shit's fucked man");
+                    Console.WriteLine("Unhandled situation at Playfair encrypt: " + clearText);
+                    break;
+                }
+            }
+
+            return result;
+        }
     }
 }

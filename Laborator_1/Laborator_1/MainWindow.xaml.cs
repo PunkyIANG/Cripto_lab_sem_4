@@ -84,5 +84,23 @@ namespace Laborator_1
                 Console.WriteLine(Nihilist.Decrypt(encryptedText, cryptKey, alphabetKey));
             }
         }
+
+        private void PlayfairAlphabetKey_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var clearText = PlayfairClearText.Text;
+            var alphabetKey = PlayfairAlphabetKey.Text;
+
+            if (clearText != string.Empty
+                && alphabetKey != string.Empty)
+            {
+                Console.WriteLine(clearText);
+                Console.WriteLine(Playfair.Encrypt(clearText, alphabetKey));
+            }
+        }
+
+        private void PlayfairEncrypted_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
     }
 }
