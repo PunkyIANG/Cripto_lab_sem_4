@@ -67,15 +67,21 @@ namespace Laborator_1
                 && alphabetKey != string.Empty
                 && cryptKey != string.Empty)
             {
-                foreach (var row in Nihilist.GetEncryptTable(clearText, cryptKey, alphabetKey))
-                {
-                    foreach (var i in row)
-                    {
-                        Console.Write(i + " ");
-                    }
-                    Console.WriteLine();
-                }
-                Console.WriteLine();
+                Console.WriteLine(Nihilist.Encrypt(clearText, cryptKey, alphabetKey));
+            }
+        }
+
+        private void NihilistEncrypted_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var encryptedText = NihilistEncrypted.Text;
+            var alphabetKey = NihilistAlphabetKey.Text;
+            var cryptKey = NihilistCryptKey.Text;
+
+            if (encryptedText != string.Empty
+                && alphabetKey != string.Empty
+                && cryptKey != string.Empty)
+            {
+                Console.WriteLine(Nihilist.Decrypt(encryptedText, cryptKey, alphabetKey));
             }
         }
     }

@@ -60,7 +60,7 @@
                 <TextBox Name="NihilistClearText" Style="{StaticResource TextArea}"/>
                 
                 <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="NihilistEncrypted" Style="{StaticResource TextArea}"/>
+                <TextBox Name="NihilistEncrypted" TextChanged="NihilistEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>
             </StackPanel>
         </TabItem>
     </TabControl>

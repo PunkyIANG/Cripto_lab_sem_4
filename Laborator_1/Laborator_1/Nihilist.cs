@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 
 namespace Laborator_1
 {
     public static class Nihilist
     {
         private const string Alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+
         public static char[][] GetAlphabetTable(string key)
         {
             char[][] result = new char[5][];
@@ -12,29 +14,55 @@ namespace Laborator_1
             {
                 result[i] = new char[5];
             }
-            
-            var _alphabet = Alphabet;
+
+            var alphabet = Alphabet;
             int counterI = 0;
             int counterJ = 0;
 
             foreach (var c in key)
             {
-                if (_alphabet.Contains(c))
+                if (alphabet.Contains(c))
                 {
                     result[counterI][counterJ] = c;
-                    _alphabet = _alphabet.Remove(_alphabet.IndexOf(c),1);
-                    
+                    alphabet = alphabet.Remove(alphabet.IndexOf(c), 1);
+
                     Increment(ref counterI, ref counterJ);
                 }
             }
 
-            foreach (var c in _alphabet)
+            foreach (var c in alphabet)
             {
                 result[counterI][counterJ] = c;
                 Increment(ref counterI, ref counterJ);
             }
 
             return result;
+        }
+
+        private static int CharToInt(char c, char[][] alphabetTable)
+        {
+            for (int i = 0; i < alphabetTable.Length; i++)
+            {
+                for (int j = 0; j < alphabetTable[i].Length; j++)
+                {
+                    if (c == alphabetTable[i][j])
+                    {
+                        return (i + 1) * 10 + (j + 1);
+                    }
+                }
+            }
+
+            Console.WriteLine("Shit's fucked man");
+            Console.WriteLine("Nonexistent letter given to CharToInt converter " + c);
+            return 0;
+        }
+
+        private static char IntToChar(int id, char[][] alphabetTable)
+        {
+            Console.WriteLine(id);
+            int i = (id / 10) - 1;
+            int j = (id % 10) - 1;
+            return alphabetTable[i][j];
         }
 
         private static void Increment(ref int counterI, ref int counterJ)
@@ -44,7 +72,7 @@ namespace Laborator_1
             counterJ %= 5;
         }
 
-        public static int[][] GetEncryptTable(string clearText, string cryptKey, string alphabetKey)
+        public static string Encrypt(string clearText, string cryptKey, string alphabetKey)
         {
             var alphabetTable = GetAlphabetTable(alphabetKey);
             char[][] table = new char[(int) Math.Ceiling((float) clearText.Length / cryptKey.Length + 1)][];
@@ -71,11 +99,11 @@ namespace Laborator_1
                     }
                     else
                     {
-                        table[i][j] = Char.MaxValue;    //kind of null
+                        table[i][j] = Char.MaxValue; //kind of null
                     }
                 }
             }
-            
+
             int[][] result = new int[table.Length][];
 
             for (int i = 0; i < result.Length; i++)
@@ -100,30 +128,100 @@ namespace Laborator_1
                     }
                     else
                     {
-                        result[i][j] = 0;
+                        result[i][j] = 100;
                     }
                 }
             }
 
-            return result;
+            string encryptedText = "";
+
+            for (int i = 1; i < result.Length; i++)
+            {
+                foreach (var j in result[i])
+                {
+                    if (j == 100)
+                    {
+                        continue;
+                    }
+                    
+                    if (j < 10)
+                    {
+                        encryptedText += "0";
+                    }
+
+                    encryptedText += j + " ";
+                }
+            }
+
+            return encryptedText;
         }
 
-        private static int CharToInt(char c, char[][] alphabetTable)
+        public static string Decrypt(string encryptedText, string cryptKey, string alphabetKey)
         {
-            for (int i = 0; i < alphabetTable.Length; i++)
+            var alphabetTable = GetAlphabetTable(alphabetKey);
+            int[] intArray = encryptedText.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+            
+            int[][] intTable = new int[(int) Math.Ceiling((float) intArray.Length / cryptKey.Length + 1)][];
+
+            for (int i = 0; i < intTable.Length; i++)
             {
-                for (int j = 0; j < alphabetTable[i].Length; j++)
+                intTable[i] = new int[cryptKey.Length];
+            }
+
+            for (int i = 0; i < intTable[0].Length; i++)
+            {
+                intTable[0][i] = CharToInt(cryptKey[i], alphabetTable);
+                Console.Write(intTable[0][i] + " ");
+            }
+            Console.WriteLine();
+
+            for (int i = 1; i < intTable.Length; i++)
+            {
+                for (int j = 0; j < intTable[0].Length; j++)
                 {
-                    if (c == alphabetTable[i][j])
+                    int arrId = (i - 1) * intTable[i].Length + j;
+
+                    if (arrId < intArray.Length)
                     {
-                        return (i + 1) * 10 + (j + 1);
+                        intTable[i][j] = intArray[arrId];
                     }
+                    else
+                    {
+                        intTable[i][j] = 100;
+                    }
+                    
+                    Console.Write(intTable[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
+            
+            
+
+            string clearText = "";
+
+            for (int i = 1; i < intTable.Length; i++)
+            {
+                for (int j = 0; j < intTable[i].Length; j++)
+                {
+                    if (intTable[i][j] == 100)
+                    {
+                        continue;
+                    }
+
+                    int actualId = intTable[i][j] - intTable[0][j];
+
+                    if (actualId <= 0)
+                    {
+                        actualId += 100;
+                    }
+                    
+                    clearText += IntToChar(actualId, alphabetTable);
                 }
             }
             
-            Console.WriteLine("Shit's fucked man");
-            Console.WriteLine("Nonexistent letter given to CharToInt converter " + c);
-            return 0;
+            return clearText;
         }
     }
 }
