@@ -39,9 +39,7 @@
                 <TextBox Name="MyszkowskiClearText" TextChanged="MyszkowskiClearText_OnTextChanged"
                          Style="{StaticResource TextArea}">
                 </TextBox>
-
-                <TextBlock>--------------~~~--------------</TextBlock>
-
+                
                 <TextBlock>Text criptat:</TextBlock>
                 <TextBox Name="MyszkowskiEncryptedText" TextChanged="MyszkowskiEncryptedText_OnTextChanged"
                          Style="{StaticResource TextArea}">
@@ -54,10 +52,10 @@
                 <TextBox Name="NihilistAlphabetKey" TextChanged="NihilistAlphabetKey_OnTextChanged"/>
                 
                 <TextBlock>Cheie cifru:</TextBlock>
-                <TextBox Name="NihilistCryptKey" />
+                <TextBox Name="NihilistCryptKey" TextChanged="NihilistAlphabetKey_OnTextChanged"/>
                 
                 <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="NihilistClearText" Style="{StaticResource TextArea}"/>
+                <TextBox Name="NihilistClearText" TextChanged="NihilistAlphabetKey_OnTextChanged" Style="{StaticResource TextArea}"/>
                 
                 <TextBlock>Text criptat:</TextBlock>
                 <TextBox Name="NihilistEncrypted" TextChanged="NihilistEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>
@@ -69,7 +67,7 @@
                 <TextBox Name="PlayfairAlphabetKey" TextChanged="PlayfairAlphabetKey_OnTextChanged"/>
                 
                 <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="PlayfairClearText" Style="{StaticResource TextArea}"/>
+                <TextBox Name="PlayfairClearText" TextChanged="PlayfairAlphabetKey_OnTextChanged" Style="{StaticResource TextArea}"/>
                 
                 <TextBlock>Text criptat:</TextBlock>
                 <TextBox Name="PlayfairEncrypted" TextChanged="PlayfairEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>

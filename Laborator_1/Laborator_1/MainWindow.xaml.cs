@@ -25,10 +25,13 @@ namespace Laborator_1
         {
             InitializeComponent();
         }
-        
+
         //TODO: add uppercase vaidation
 
         private bool _triggerMyszkowski = true;
+        private bool _triggerNihilist = true;
+        private bool _triggerPlayfair = true;
+
         private void MyszkowskiClearText_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             var clearText = MyszkowskiClearText.Text;
@@ -65,9 +68,12 @@ namespace Laborator_1
 
             if (clearText != string.Empty
                 && alphabetKey != string.Empty
-                && cryptKey != string.Empty)
+                && cryptKey != string.Empty
+                && _triggerNihilist)
             {
-                Console.WriteLine(Nihilist.Encrypt(clearText, cryptKey, alphabetKey));
+                _triggerNihilist = false;
+                NihilistEncrypted.Text = Nihilist.Encrypt(clearText, cryptKey, alphabetKey);
+                _triggerNihilist = true;
             }
         }
 
@@ -79,9 +85,12 @@ namespace Laborator_1
 
             if (encryptedText != string.Empty
                 && alphabetKey != string.Empty
-                && cryptKey != string.Empty)
+                && cryptKey != string.Empty
+                && _triggerNihilist)
             {
-                Console.WriteLine(Nihilist.Decrypt(encryptedText, cryptKey, alphabetKey));
+                _triggerNihilist = false;
+                NihilistClearText.Text = Nihilist.Decrypt(encryptedText, cryptKey, alphabetKey);
+                _triggerNihilist = true;
             }
         }
 
@@ -91,16 +100,28 @@ namespace Laborator_1
             var alphabetKey = PlayfairAlphabetKey.Text;
 
             if (clearText != string.Empty
-                && alphabetKey != string.Empty)
+                && alphabetKey != string.Empty
+                && _triggerPlayfair)
             {
-                Console.WriteLine(clearText);
-                Console.WriteLine(Playfair.Encrypt(clearText, alphabetKey));
+                _triggerPlayfair = false;
+                PlayfairEncrypted.Text = Playfair.Encrypt(clearText, alphabetKey);
+                _triggerPlayfair = true;
             }
         }
 
         private void PlayfairEncrypted_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            var encryptedText = PlayfairEncrypted.Text;
+            var alphabetKey = PlayfairAlphabetKey.Text;
+
+            if (encryptedText != string.Empty
+                && alphabetKey != string.Empty
+                && _triggerPlayfair)
+            {
+                _triggerPlayfair = false;
+                PlayfairClearText.Text = Playfair.Decrypt(encryptedText, alphabetKey);
+                _triggerPlayfair = true;
+            }
         }
     }
 }

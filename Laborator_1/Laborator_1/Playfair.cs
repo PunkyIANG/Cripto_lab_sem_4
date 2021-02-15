@@ -86,6 +86,48 @@ namespace Laborator_1
             return string.Empty;
         }
 
+        private static string DecryptBigram(string bigram, char[][] alphabet)
+        {
+            CharToInt(bigram[0], alphabet, out var firstX, out var firstY);
+            CharToInt(bigram[1], alphabet, out var secondX, out var secondY);
+
+            if (firstX == secondX        //error
+                && firstY == secondY)
+            {
+                Console.WriteLine("Shit's fucked man");
+                Console.WriteLine("Equal bigram given to EncryptBigram: " + bigram);
+                return string.Empty;
+            }
+
+            if (firstX == secondX         //same row
+                && firstY != secondY)
+            {
+                var newFirstY = (firstY + alphabet.Length - 1) % alphabet.Length;
+                var newSecondY = (secondY + alphabet.Length - 1) % alphabet.Length;
+
+                return "" + alphabet[firstX][newFirstY] + alphabet[secondX][newSecondY];
+            }
+
+            if (firstX != secondX        //same column
+                && firstY == secondY)
+            {
+                var newFirstX = (firstX + alphabet.Length - 1) % alphabet[0].Length;
+                var newSecondX = (secondX + alphabet.Length - 1) % alphabet[0].Length;
+
+                return "" + alphabet[newFirstX][firstY] + alphabet[newSecondX][secondY];
+            }
+            
+            if (firstX != secondX        //diff row/col
+                && firstY != secondY)
+            {
+                return "" + alphabet[firstX][secondY] + alphabet[secondX][firstY];
+            }
+            
+            Console.WriteLine("Shit's fucked man");
+            Console.WriteLine("Not expected case: " + bigram);
+            return string.Empty;
+        }
+
         private static void CharToInt(char c, char[][] alphabet, out int x, out int y)
         {
             for (int i = 0; i < alphabet.Length; i++)
@@ -135,6 +177,38 @@ namespace Laborator_1
             }
 
             return result;
+        }
+
+        public static string Decrypt(string encryptedText, string alphabetKey)
+        {
+            var alphabetTable = GetAlphabetTable(alphabetKey);
+            var result = "";
+            
+            while (encryptedText.Length != 0)
+            {
+                if (encryptedText.Length == 1 || encryptedText[0] == encryptedText[1])
+                {
+                    Console.WriteLine("Shit's fucked man");
+                    Console.WriteLine("Odd length encrypted text given to Playfair decrypt");
+                    // result += DecryptBigram(encryptedText[0] + "X", alphabetTable);
+                    encryptedText = encryptedText.Remove(0, 1);
+                    continue;
+                }
+
+                if (encryptedText[0] != encryptedText[1])
+                {
+                    result += DecryptBigram("" + encryptedText[0] + encryptedText[1], alphabetTable);
+                    encryptedText = encryptedText.Remove(0, 2);
+                    continue;
+                }
+
+                Console.WriteLine("Shit's fucked man");
+                Console.WriteLine("Unhandled situation at Playfair decrypt: " + encryptedText);
+                break;
+            }
+
+            return result;
+
         }
     }
 }
