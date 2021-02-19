@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Laborator_1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+
     <TabControl>
         <TabControl.Resources>
             <Style TargetType="FrameworkElement" x:Key="CommonStyle">
@@ -19,12 +19,15 @@
 
             <Style TargetType="ComboBox" BasedOn="{StaticResource CommonStyle}" />
 
-            <Style TargetType="TextBox" BasedOn="{StaticResource CommonStyle}" />
+            <Style TargetType="TextBox" BasedOn="{StaticResource CommonStyle}">
+                <Setter Property="CharacterCasing" Value="Upper" />
+            </Style>
 
             <Style TargetType="TextBox" x:Key="TextArea" BasedOn="{StaticResource CommonStyle}">
-                <Setter Property="Height" Value="60"></Setter>
+                <Setter Property="Height" Value="60" />
                 <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
+                <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+                <Setter Property="CharacterCasing" Value="Upper" />
             </Style>
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyle}" />
@@ -33,44 +36,85 @@
         <TabItem Header="Myszkowski">
             <StackPanel>
                 <TextBlock>Cheie:</TextBlock>
-                <TextBox Name="MyszkowskiKey"></TextBox>
+                <TextBox Name="MyszkowskiKey" TextChanged="MyszkowskiEncrypt"
+                         PreviewTextInput="RestrictAlphabet">
+                </TextBox>
 
                 <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="MyszkowskiClearText" TextChanged="MyszkowskiClearText_OnTextChanged"
+                <TextBox Name="MyszkowskiClearText" TextChanged="MyszkowskiEncrypt"
                          Style="{StaticResource TextArea}">
                 </TextBox>
-                
+
                 <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="MyszkowskiEncryptedText" TextChanged="MyszkowskiEncryptedText_OnTextChanged"
+                <TextBox Name="MyszkowskiEncryptedText" TextChanged="MyszkowskiDecrypt"
                          Style="{StaticResource TextArea}">
                 </TextBox>
             </StackPanel>
         </TabItem>
+
         <TabItem Header="Nihilist">
             <StackPanel>
                 <TextBlock>Cheie alfabet:</TextBlock>
-                <TextBox Name="NihilistAlphabetKey" TextChanged="NihilistAlphabetKey_OnTextChanged"/>
-                
+                <TextBox Name="NihilistAlphabetKey" TextChanged="NihilistEncrypt"
+                         PreviewTextInput="RestrictAlphabet" />
+
                 <TextBlock>Cheie cifru:</TextBlock>
-                <TextBox Name="NihilistCryptKey" TextChanged="NihilistAlphabetKey_OnTextChanged"/>
-                
+                <TextBox Name="NihilistCryptKey" TextChanged="NihilistEncrypt"
+                         PreviewTextInput="RestrictAlphabet" />
+
                 <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="NihilistClearText" TextChanged="NihilistAlphabetKey_OnTextChanged" Style="{StaticResource TextArea}"/>
-                
+                <TextBox Name="NihilistClearText" TextChanged="NihilistEncrypt"
+                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+
                 <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="NihilistEncrypted" TextChanged="NihilistEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>
+                <TextBox Name="NihilistEncrypted" TextChanged="NihilistDecrypt"
+                         Style="{StaticResource TextArea}" />
             </StackPanel>
         </TabItem>
+
         <TabItem Header="Playfair">
             <StackPanel>
                 <TextBlock>Cheie alfabet:</TextBlock>
-                <TextBox Name="PlayfairAlphabetKey" TextChanged="PlayfairAlphabetKey_OnTextChanged"/>
-                
+                <TextBox Name="PlayfairAlphabetKey" TextChanged="PlayfairEncrypt"
+                         PreviewTextInput="RestrictAlphabet" />
+
                 <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="PlayfairClearText" TextChanged="PlayfairAlphabetKey_OnTextChanged" Style="{StaticResource TextArea}"/>
-                
+                <TextBox Name="PlayfairClearText" TextChanged="PlayfairEncrypt"
+                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+
                 <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="PlayfairEncrypted" TextChanged="PlayfairEncrypted_OnTextChanged" Style="{StaticResource TextArea}"/>
+                <TextBox Name="PlayfairEncrypted" TextChanged="PlayfairDecrypt"
+                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Vigenere">
+            <StackPanel>
+                <TextBlock>Cheie alfabet:</TextBlock>
+                <TextBox Name="VigenereAlphabetKey" TextChanged="VigenereEncrypt"
+                         PreviewTextInput="RestrictAlphabet" />
+
+                <TextBlock>Text clar:</TextBlock>
+                <TextBox Name="VigenereClearText" TextChanged="VigenereEncrypt"
+                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+
+                <TextBlock>Text criptat:</TextBlock>
+                <TextBox Name="VigenereEncrypted" TextChanged="VigenereDecrypt"
+                         PreviewTextInput="RestrictAlphabet"
+                         Style="{StaticResource TextArea}" />
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Nicodemus">
+            <StackPanel>
+                <TextBlock>Cheie alfabet:</TextBlock>
+                <TextBox Name="NicodemusAlphabetKey" TextChanged="NicodemusEncrypt" PreviewTextInput="RestrictAlphabet"/>
+
+                <TextBlock>Text clar:</TextBlock>
+                <TextBox Name="NicodemusClearText" Style="{StaticResource TextArea}" PreviewTextInput="RestrictAlphabet"/>
+
+                <TextBlock>Text criptat:</TextBlock>
+                <TextBox Name="NicodemusEncrypted" Style="{StaticResource TextArea}" PreviewTextInput="RestrictAlphabet"/>
             </StackPanel>
         </TabItem>
     </TabControl>

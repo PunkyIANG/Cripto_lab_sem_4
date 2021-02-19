@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ namespace Laborator_1
         private bool _triggerNihilist = true;
         private bool _triggerPlayfair = true;
 
-        private void MyszkowskiClearText_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void MyszkowskiEncrypt(object sender, TextChangedEventArgs e)
         {
             var clearText = MyszkowskiClearText.Text;
             var key = MyszkowskiKey.Text;
@@ -46,7 +47,7 @@ namespace Laborator_1
             }
         }
 
-        private void MyszkowskiEncryptedText_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void MyszkowskiDecrypt(object sender, TextChangedEventArgs e)
         {
             var encryptedText = MyszkowskiEncryptedText.Text;
             var key = MyszkowskiKey.Text;
@@ -60,7 +61,7 @@ namespace Laborator_1
             }
         }
 
-        private void NihilistAlphabetKey_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void NihilistEncrypt(object sender, TextChangedEventArgs e)
         {
             var clearText = NihilistClearText.Text;
             var alphabetKey = NihilistAlphabetKey.Text;
@@ -77,7 +78,7 @@ namespace Laborator_1
             }
         }
 
-        private void NihilistEncrypted_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void NihilistDecrypt(object sender, TextChangedEventArgs e)
         {
             var encryptedText = NihilistEncrypted.Text;
             var alphabetKey = NihilistAlphabetKey.Text;
@@ -94,7 +95,7 @@ namespace Laborator_1
             }
         }
 
-        private void PlayfairAlphabetKey_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void PlayfairEncrypt(object sender, TextChangedEventArgs e)
         {
             var clearText = PlayfairClearText.Text;
             var alphabetKey = PlayfairAlphabetKey.Text;
@@ -109,7 +110,7 @@ namespace Laborator_1
             }
         }
 
-        private void PlayfairEncrypted_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void PlayfairDecrypt(object sender, TextChangedEventArgs e)
         {
             var encryptedText = PlayfairEncrypted.Text;
             var alphabetKey = PlayfairAlphabetKey.Text;
@@ -122,6 +123,53 @@ namespace Laborator_1
                 PlayfairClearText.Text = Playfair.Decrypt(encryptedText, alphabetKey);
                 _triggerPlayfair = true;
             }
+        }
+
+        private void VigenereEncrypt(object sender, TextChangedEventArgs e)
+        {
+            var key = VigenereAlphabetKey.Text;
+            var clearText = VigenereClearText.Text;
+
+            if (key != string.Empty
+                && clearText != string.Empty)
+            {
+                Console.WriteLine(Vigenere.Encrypt(clearText, key));
+            }
+        }
+
+        private void VigenereDecrypt(object sender, TextChangedEventArgs e)
+        {
+            var key = VigenereAlphabetKey.Text;
+            var encryptedText = VigenereEncrypted.Text;
+
+            if (key != string.Empty
+                && encryptedText != string.Empty)
+            {
+                Console.WriteLine(Vigenere.Decrypt(encryptedText, key));
+            }
+        }
+
+        private void NicodemusEncrypt(object sender, TextChangedEventArgs e)
+        {
+            var key = NicodemusAlphabetKey.Text;
+            var clearText = NicodemusClearText.Text;
+            
+            if (key != string.Empty)
+            {
+                Console.WriteLine(Nicodemus.Encrypt(clearText, key));
+                Console.WriteLine();
+            }
+        }
+
+        private void RestrictAlphabet(object sender, TextCompositionEventArgs e)
+        {
+            var alphabetRegex = new Regex("[a-zA-Z ]");
+            e.Handled = !alphabetRegex.IsMatch(e.Text);
+        }
+
+        private string RemoveSpaces(string s)
+        {
+            return s.Replace(" ", "");
         }
     }
 }

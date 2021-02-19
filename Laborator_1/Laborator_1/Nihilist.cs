@@ -108,7 +108,7 @@ namespace Laborator_1
                     }
                     else
                     {
-                        table[i][j] = Char.MaxValue; //kind of null
+                        table[i][j] = char.MaxValue; //kind of null
                     }
                 }
             }

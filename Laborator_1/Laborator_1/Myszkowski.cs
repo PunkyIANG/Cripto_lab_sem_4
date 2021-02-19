@@ -122,9 +122,7 @@ namespace Laborator_1
 
             return result;
         }
-        
-        
-        
+
         public static string Encrypt(string clearText, string key)
         {
             var table = EncryptTable(clearText, key);
