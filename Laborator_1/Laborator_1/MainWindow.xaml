@@ -64,7 +64,7 @@
 
                 <TextBlock>Text clar:</TextBlock>
                 <TextBox Name="NihilistClearText" TextChanged="NihilistEncrypt"
-                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+                         PreviewTextInput="RestrictAlphabetSpace" Style="{StaticResource TextArea}" />
 
                 <TextBlock>Text criptat:</TextBlock>
                 <TextBox Name="NihilistEncrypted" TextChanged="NihilistDecrypt"
@@ -80,11 +80,11 @@
 
                 <TextBlock>Text clar:</TextBlock>
                 <TextBox Name="PlayfairClearText" TextChanged="PlayfairEncrypt"
-                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+                         PreviewTextInput="RestrictAlphabetSpace" Style="{StaticResource TextArea}" />
 
                 <TextBlock>Text criptat:</TextBlock>
                 <TextBox Name="PlayfairEncrypted" TextChanged="PlayfairDecrypt"
-                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+                         PreviewTextInput="RestrictAlphabetSpace" Style="{StaticResource TextArea}" />
             </StackPanel>
         </TabItem>
 
@@ -96,11 +96,11 @@
 
                 <TextBlock>Text clar:</TextBlock>
                 <TextBox Name="VigenereClearText" TextChanged="VigenereEncrypt"
-                         PreviewTextInput="RestrictAlphabet" Style="{StaticResource TextArea}" />
+                         PreviewTextInput="RestrictAlphabetSpace" Style="{StaticResource TextArea}" />
 
                 <TextBlock>Text criptat:</TextBlock>
                 <TextBox Name="VigenereEncrypted" TextChanged="VigenereDecrypt"
-                         PreviewTextInput="RestrictAlphabet"
+                         PreviewTextInput="RestrictAlphabetSpace"
                          Style="{StaticResource TextArea}" />
             </StackPanel>
         </TabItem>
@@ -112,11 +112,11 @@
 
                 <TextBlock>Text clar:</TextBlock>
                 <TextBox Name="NicodemusClearText" TextChanged="NicodemusEncrypt" Style="{StaticResource TextArea}"
-                         PreviewTextInput="RestrictAlphabet" />
+                         PreviewTextInput="RestrictAlphabetSpace" />
 
                 <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="NicodemusEncrypted" Style="{StaticResource TextArea}"
-                         PreviewTextInput="RestrictAlphabet" />
+                <TextBox Name="NicodemusEncrypted" TextChanged="NicodemusDecrypt" Style="{StaticResource TextArea}"
+                         PreviewTextInput="RestrictAlphabetSpace" />
             </StackPanel>
         </TabItem>
     </TabControl>

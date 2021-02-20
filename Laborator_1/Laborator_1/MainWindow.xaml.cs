@@ -32,6 +32,8 @@ namespace Laborator_1
         private bool _triggerMyszkowski = true;
         private bool _triggerNihilist = true;
         private bool _triggerPlayfair = true;
+        private bool _triggerVigenere = true;
+        private bool _triggerNicodemus = true;
 
         private void MyszkowskiEncrypt(object sender, TextChangedEventArgs e)
         {
@@ -63,7 +65,7 @@ namespace Laborator_1
 
         private void NihilistEncrypt(object sender, TextChangedEventArgs e)
         {
-            var clearText = NihilistClearText.Text;
+            var clearText = RemoveSpaces(NihilistClearText.Text);
             var alphabetKey = NihilistAlphabetKey.Text;
             var cryptKey = NihilistCryptKey.Text;
 
@@ -97,7 +99,7 @@ namespace Laborator_1
 
         private void PlayfairEncrypt(object sender, TextChangedEventArgs e)
         {
-            var clearText = PlayfairClearText.Text;
+            var clearText = RemoveSpaces(PlayfairClearText.Text);
             var alphabetKey = PlayfairAlphabetKey.Text;
 
             if (clearText != string.Empty
@@ -112,7 +114,7 @@ namespace Laborator_1
 
         private void PlayfairDecrypt(object sender, TextChangedEventArgs e)
         {
-            var encryptedText = PlayfairEncrypted.Text;
+            var encryptedText = RemoveSpaces(PlayfairEncrypted.Text);
             var alphabetKey = PlayfairAlphabetKey.Text;
 
             if (encryptedText != string.Empty
@@ -131,9 +133,12 @@ namespace Laborator_1
             var clearText = VigenereClearText.Text;
 
             if (key != string.Empty
-                && clearText != string.Empty)
+                && clearText != string.Empty
+                && _triggerVigenere)
             {
-                Console.WriteLine(Vigenere.Encrypt(clearText, key));
+                _triggerVigenere = false;
+                VigenereEncrypted.Text = Vigenere.Encrypt(clearText, key);
+                _triggerVigenere = true;
             }
         }
 
@@ -143,31 +148,58 @@ namespace Laborator_1
             var encryptedText = VigenereEncrypted.Text;
 
             if (key != string.Empty
-                && encryptedText != string.Empty)
+                && encryptedText != string.Empty
+                && _triggerVigenere)
             {
-                Console.WriteLine(Vigenere.Decrypt(encryptedText, key));
+                _triggerVigenere = false;
+                VigenereClearText.Text = Vigenere.Decrypt(encryptedText, key);
+                _triggerVigenere = true;
             }
         }
 
         private void NicodemusEncrypt(object sender, TextChangedEventArgs e)
         {
             var key = NicodemusAlphabetKey.Text;
-            var clearText = NicodemusClearText.Text;
+            var clearText = RemoveSpaces(NicodemusClearText.Text);
             
             if (key != string.Empty
-                && clearText != string.Empty)
+                && clearText != string.Empty
+                && _triggerNicodemus)
             {
-                Console.WriteLine(Nicodemus.Encrypt(clearText, key));
-                Console.WriteLine();
+                _triggerNicodemus = false;
+                NicodemusEncrypted.Text = Nicodemus.Encrypt(clearText, key);
+                _triggerNicodemus = true;
+
             }
         }
-
-        private void RestrictAlphabet(object sender, TextCompositionEventArgs e)
+        
+        private void NicodemusDecrypt(object sender, TextChangedEventArgs e)
+        {
+            var key = NicodemusAlphabetKey.Text;
+            var encryptedText = RemoveSpaces(NicodemusEncrypted.Text);
+            
+            if (key != string.Empty
+                && encryptedText != string.Empty
+                && _triggerNicodemus)
+            {
+                _triggerNicodemus = false;
+                NicodemusClearText.Text = Nicodemus.Decrypt(encryptedText, key);
+                _triggerNicodemus = true;
+            }
+        }
+        
+        private void RestrictAlphabetSpace(object sender, TextCompositionEventArgs e)
         {
             var alphabetRegex = new Regex("[a-zA-Z ]");
             e.Handled = !alphabetRegex.IsMatch(e.Text);
         }
-
+        
+        private void RestrictAlphabet(object sender, TextCompositionEventArgs e)
+        {
+            var alphabetRegex = new Regex("[a-zA-Z]");
+            e.Handled = !alphabetRegex.IsMatch(e.Text);
+        }
+        
         private string RemoveSpaces(string s)
         {
             return s.Replace(" ", "");
