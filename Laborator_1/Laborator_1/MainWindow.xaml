@@ -108,13 +108,15 @@
         <TabItem Header="Nicodemus">
             <StackPanel>
                 <TextBlock>Cheie alfabet:</TextBlock>
-                <TextBox Name="NicodemusAlphabetKey" TextChanged="NicodemusEncrypt" PreviewTextInput="RestrictAlphabet"/>
+                <TextBox Name="NicodemusAlphabetKey" TextChanged="NicodemusEncrypt" PreviewTextInput="RestrictAlphabet" />
 
                 <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="NicodemusClearText" Style="{StaticResource TextArea}" PreviewTextInput="RestrictAlphabet"/>
+                <TextBox Name="NicodemusClearText" TextChanged="NicodemusEncrypt" Style="{StaticResource TextArea}"
+                         PreviewTextInput="RestrictAlphabet" />
 
                 <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="NicodemusEncrypted" Style="{StaticResource TextArea}" PreviewTextInput="RestrictAlphabet"/>
+                <TextBox Name="NicodemusEncrypted" Style="{StaticResource TextArea}"
+                         PreviewTextInput="RestrictAlphabet" />
             </StackPanel>
         </TabItem>
     </TabControl>

@@ -154,7 +154,8 @@ namespace Laborator_1
             var key = NicodemusAlphabetKey.Text;
             var clearText = NicodemusClearText.Text;
             
-            if (key != string.Empty)
+            if (key != string.Empty
+                && clearText != string.Empty)
             {
                 Console.WriteLine(Nicodemus.Encrypt(clearText, key));
                 Console.WriteLine();

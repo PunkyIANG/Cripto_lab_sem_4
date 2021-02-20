@@ -9,7 +9,7 @@ namespace Laborator_1
         public static int[] LetterMap(string keyword)
         {
             var keywordArr = keyword.ToUpper().ToCharArray();
-            
+
             var result = new int[keyword.Length];
             for (var i = 0; i < keyword.Length; i++)
             {
@@ -62,7 +62,7 @@ namespace Laborator_1
                     }
                 }
             }
-            
+
             char[][] secondTable = new char[firstTable.Length][];
             int[] shuffle = LetterMap(key);
 
@@ -75,26 +75,34 @@ namespace Laborator_1
                     secondTable[i][shuffle[j]] = firstTable[i][j];
                 }
             }
-            
-            
+
+
             for (int i = 1; i < secondTable.Length; i++)
             {
                 for (int j = 0; j < secondTable[i].Length; j++)
                 {
-                    secondTable[i][j] = Vigenere.Encrypt(secondTable[i][j], secondTable[0][j]);
+                    if (secondTable[i][j] != ' ')
+                        secondTable[i][j] = Vigenere.Encrypt(secondTable[i][j], secondTable[0][j]);
                 }
             }
-            
+
             string result = "";
 
-            for (int j = 0; j < secondTable[0].Length; j++)
+            for (int multipleOfFive = 0;
+                multipleOfFive < (int) Math.Ceiling((float) secondTable.Length / 5);
+                multipleOfFive++)
             {
-                
-                for (int i = 1; i < secondTable.Length; i++)
+                for (int j = 0; j < secondTable[0].Length; j++)
                 {
-                    if (secondTable[i][j] != ' ')
+                    for (int i = 0; i < 5; i++)
                     {
-                        result += secondTable[i][j];
+                        int x = i + multipleOfFive * 5 + 1;
+                        if (x < secondTable.Length
+                            && secondTable[x][j] != ' ')
+                        {
+                            Console.WriteLine("Added (" + x + ", " + j + ")");
+                            result += secondTable[x][j];
+                        }
                     }
                 }
             }
