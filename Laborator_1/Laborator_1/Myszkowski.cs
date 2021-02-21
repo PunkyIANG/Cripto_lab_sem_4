@@ -123,7 +123,7 @@ namespace Laborator_1
             return result;
         }
 
-        public static string Encrypt(string clearText, string key)
+        public static string Encrypt(string clearText, string key, out char[][] charTable)
         {
             var table = EncryptTable(clearText, key);
             var result = "";
@@ -145,14 +145,16 @@ namespace Laborator_1
                     }
                 }
             }
-            
+
+            charTable = table;
             return result;
         }
 
-        public static string Decrypt(string encryptedText, string key)
+        public static string Decrypt(string encryptedText, string key, out char[][] decryptTable)
         {
             var result = "";
-            foreach (var row in DecryptTable(encryptedText, key))
+            decryptTable = DecryptTable(encryptedText, key);
+            foreach (var row in decryptTable)
             {
                 result += new string(row);
             }

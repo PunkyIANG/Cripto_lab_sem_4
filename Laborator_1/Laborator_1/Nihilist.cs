@@ -81,10 +81,10 @@ namespace Laborator_1
             return '?';
         }
         
-        public static string Encrypt(string clearText, string cryptKey, string alphabetKey)
+        public static string Encrypt(string clearText, string cryptKey, string alphabetKey, out char[][] table, out int[][] result)
         {
             var alphabetTable = GetAlphabetTable(alphabetKey);
-            char[][] table = new char[(int) Math.Ceiling((float) clearText.Length / cryptKey.Length + 1)][];
+            table = new char[(int) Math.Ceiling((float) clearText.Length / cryptKey.Length + 1)][];
 
             for (int i = 0; i < table.Length; i++)
             {
@@ -113,7 +113,7 @@ namespace Laborator_1
                 }
             }
 
-            int[][] result = new int[table.Length][];
+            result = new int[table.Length][];
 
             for (int i = 0; i < result.Length; i++)
             {
@@ -165,14 +165,14 @@ namespace Laborator_1
             return encryptedText;
         }
 
-        public static string Decrypt(string encryptedText, string cryptKey, string alphabetKey)
+        public static string Decrypt(string encryptedText, string cryptKey, string alphabetKey, out char[][] charGrid, out int[][] intTable)
         {
             var alphabetTable = GetAlphabetTable(alphabetKey);
             int[] intArray = encryptedText.Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
 
-            int[][] intTable = new int[(int) Math.Ceiling((float) intArray.Length / cryptKey.Length + 1)][];
+            intTable = new int[(int) Math.Ceiling((float) intArray.Length / cryptKey.Length + 1)][];
 
             for (int i = 0; i < intTable.Length; i++)
             {
@@ -186,6 +186,7 @@ namespace Laborator_1
             }
 
             Console.WriteLine();
+            charGrid = new char[intTable.Length][];
 
             for (int i = 1; i < intTable.Length; i++)
             {
@@ -211,23 +212,33 @@ namespace Laborator_1
 
             string clearText = "";
 
-            for (int i = 1; i < intTable.Length; i++)
+            for (int i = 0; i < intTable.Length; i++)
             {
+                charGrid[i] = new char[intTable[i].Length];
+                
                 for (int j = 0; j < intTable[i].Length; j++)
                 {
-                    if (intTable[i][j] == 100)
+                    if (i == 0)
                     {
-                        continue;
+                        charGrid[i][j] = IntToChar(intTable[i][j], alphabetTable);
                     }
-
-                    int actualId = intTable[i][j] - intTable[0][j];
-
-                    if (actualId <= 0)
+                    else
                     {
-                        actualId += 100;
-                    }
+                        if (intTable[i][j] == 100)
+                        {
+                            continue;
+                        }
 
-                    clearText += IntToChar(actualId, alphabetTable);
+                        int actualId = intTable[i][j] - intTable[0][j];
+
+                        if (actualId <= 0)
+                        {
+                            actualId += 100;
+                        }
+
+                        clearText += IntToChar(actualId, alphabetTable);
+                        charGrid[i][j] = IntToChar(actualId, alphabetTable);
+                    }
                 }
             }
 

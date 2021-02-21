@@ -31,45 +31,87 @@
             </Style>
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyle}" />
+
+            <Style TargetType="TextBlock" x:Key="Character" BasedOn="{StaticResource CommonStyle}">
+                <Setter Property="Width" Value="30" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="TextAlignment" Value="Center"></Setter>
+            </Style>
         </TabControl.Resources>
 
         <TabItem Header="Myszkowski">
-            <StackPanel>
-                <TextBlock>Cheie:</TextBlock>
-                <TextBox Name="MyszkowskiKey" TextChanged="MyszkowskiEncrypt"
-                         PreviewTextInput="RestrictAlphabet">
-                </TextBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock>Cheie:</TextBlock>
+                    <TextBox Name="MyszkowskiKey" TextChanged="MyszkowskiEncrypt"
+                             PreviewTextInput="RestrictAlphabet">
+                    </TextBox>
 
-                <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="MyszkowskiClearText" TextChanged="MyszkowskiEncrypt"
-                         Style="{StaticResource TextArea}">
-                </TextBox>
+                    <TextBlock>Text clar:</TextBlock>
+                    <TextBox Name="MyszkowskiClearText" TextChanged="MyszkowskiEncrypt"
+                             Style="{StaticResource TextArea}">
+                    </TextBox>
 
-                <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="MyszkowskiEncryptedText" TextChanged="MyszkowskiDecrypt"
-                         Style="{StaticResource TextArea}">
-                </TextBox>
-            </StackPanel>
+                    <TextBlock>Text criptat:</TextBlock>
+                    <TextBox Name="MyszkowskiEncryptedText" TextChanged="MyszkowskiDecrypt"
+                             Style="{StaticResource TextArea}">
+                    </TextBox>
+                </StackPanel>
+                <Grid Grid.Column="1" Name="MyszkowskiGrid"
+                      local:GridHelpers.RowCount="{Binding MyszkowskiRowCount}"
+                      local:GridHelpers.ColumnCount="{Binding MyszkowskiColumnCount}"
+                      d:DataContext="{d:DesignData }">
+                </Grid>
+            </Grid>
         </TabItem>
 
         <TabItem Header="Nihilist">
-            <StackPanel>
-                <TextBlock>Cheie alfabet:</TextBlock>
-                <TextBox Name="NihilistAlphabetKey" TextChanged="NihilistEncrypt"
-                         PreviewTextInput="RestrictAlphabet" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-                <TextBlock>Cheie cifru:</TextBlock>
-                <TextBox Name="NihilistCryptKey" TextChanged="NihilistEncrypt"
-                         PreviewTextInput="RestrictAlphabet" />
+                <StackPanel Grid.RowSpan="2" >
+                    <TextBlock>Cheie alfabet:</TextBlock>
+                    <TextBox Name="NihilistAlphabetKey" TextChanged="NihilistEncrypt"
+                             PreviewTextInput="RestrictAlphabet" />
 
-                <TextBlock>Text clar:</TextBlock>
-                <TextBox Name="NihilistClearText" TextChanged="NihilistEncrypt"
-                         PreviewTextInput="RestrictAlphabetSpace" Style="{StaticResource TextArea}" />
+                    <TextBlock>Cheie cifru:</TextBlock>
+                    <TextBox Name="NihilistCryptKey" TextChanged="NihilistEncrypt"
+                             PreviewTextInput="RestrictAlphabet" />
 
-                <TextBlock>Text criptat:</TextBlock>
-                <TextBox Name="NihilistEncrypted" TextChanged="NihilistDecrypt"
-                         Style="{StaticResource TextArea}" />
-            </StackPanel>
+                    <TextBlock>Text clar:</TextBlock>
+                    <TextBox Name="NihilistClearText" TextChanged="NihilistEncrypt"
+                             PreviewTextInput="RestrictAlphabetSpace" Style="{StaticResource TextArea}" />
+
+                    <TextBlock>Text criptat:</TextBlock>
+                    <TextBox Name="NihilistEncrypted" TextChanged="NihilistDecrypt"
+                             Style="{StaticResource TextArea}" />
+                    
+                    <Grid Name="NihilistAlphabetGrid" Margin="10,5,0,0" 
+                          local:GridHelpers.RowCount="5" local:GridHelpers.ColumnCount="5">
+                    </Grid>
+                </StackPanel>
+
+                <Grid Grid.Row="0" Grid.Column="1" Name="NihilistCharGrid"
+                      local:GridHelpers.RowCount="{Binding NihilistRowCount}"
+                      local:GridHelpers.ColumnCount="{Binding NihilistColumnCount}">
+                </Grid>
+                
+                <Grid Grid.Row="1" Grid.Column="1" Name="NihilistNumberGrid"
+                      local:GridHelpers.RowCount="{Binding NihilistRowCount}"
+                      local:GridHelpers.ColumnCount="{Binding NihilistColumnCount}">
+                </Grid>
+            </Grid>
         </TabItem>
 
         <TabItem Header="Playfair">
