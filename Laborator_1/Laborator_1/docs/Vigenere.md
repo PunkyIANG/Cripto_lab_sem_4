@@ -1,0 +1,5 @@
+# Cifrul Vigenere
+
+Pentru a cripta un mesaj avem nevoie de text clar și cheie. În cazul dat voi folosi metoda prin formulă, deci convertim ambele texte în șiruri de numere, care corespund numerelor de ordine a acestora în alfabet, însă începând de la 0 (A -> 0, B -> 1 etc). În continuare vom pargurge seria textului clar și vom aduna valoarea fiecărui număr cu valoarea numărului corespunzător din seria cheii (id_text_clar % lungime_cheie) și efectuăm operația modulo la 26 pentru ca toate numerele să fie în domeniul [0, 25]. În final convertim seria obținută înapoi în șir caractere analog convertirii inițiale (0 -> A, 1 -> B etc), astfel obținând textul criptat.
+
+Pentru a decripta un mesaj folosim algoritmul invers: convertim cheia și textul criptat în serii numerice conform algoritmului descris mai sus și scădem din fiecare număr din seria criptată valoarea corespunzătoare din seria cheii (id_text_criptat % lungime_cheie). Dacă numerele obținute sunt mai mici ca 0, atunci adăugăm 26 la acestea. În final convertim seria obținută în șir de caractere, astfel obținând textul clar.
