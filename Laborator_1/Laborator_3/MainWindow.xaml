@@ -1,0 +1,53 @@
+﻿<Window x:Class="Laborator_3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Laborator_3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="FrameworkElement" x:Key="CommonStyle">
+                <Setter Property="Margin" Value="10,5,0,0" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Width" Value="150" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+
+            <Style TargetType="ComboBox" BasedOn="{StaticResource CommonStyle}" />
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource CommonStyle}">
+                <Setter Property="FontFamily" Value="Consolas" />
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="TextArea" BasedOn="{StaticResource CommonStyle}">
+                <Setter Property="Height" Value="60" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+                <Setter Property="CharacterCasing" Value="Upper" />
+            </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyle}" />
+
+            <Style TargetType="TextBlock" x:Key="Character" BasedOn="{StaticResource CommonStyle}">
+                <Setter Property="Width" Value="30" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="TextAlignment" Value="Center"></Setter>
+            </Style>
+        </StackPanel.Resources>
+
+        <RadioButton GroupName="AESGroup" Name="AES128BitRadio" Content="128 biti" Checked="AES128BitRadio_OnChecked" />
+        <RadioButton GroupName="AESGroup" Name="AES192BitRadio" Content="192 biti" Checked="AES128BitRadio_OnChecked" />
+        <RadioButton GroupName="AESGroup" Name="AES256BitRadio" Content="256 biti" Checked="AES128BitRadio_OnChecked" />
+
+        <TextBlock>Cheie (UTF8)</TextBlock>
+        <TextBox Name="AESKey" TextChanged="AESKey_OnTextChanged" />
+        <TextBlock>Biti clari (Base64)</TextBlock>
+        <TextBox Name="AESClear" TextChanged="AESKey_OnTextChanged" Style="{StaticResource TextArea}" />
+        <TextBlock>Biti criptati (Base64)</TextBlock>
+        <TextBox Name="AESEncrypted" TextChanged="AESEncrypted_OnTextChanged" Style="{StaticResource TextArea}" />
+
+    </StackPanel>
+</Window>
